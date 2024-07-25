@@ -180,6 +180,17 @@ exports.getDelete = asyncHandler(async (req, res, next) => {
   }
 });
 
+// post delete form
+exports.postDelete = asyncHandler(async (req, res, next) => {
+  try {
+    console.log(req.body.targetID);
+    await pool.query("DELETE FROM posts WHERE id = $1", [req.body.targetID]);
+    res.redirect("/messages");
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST LOGIN
 
 // exports.postLogin = [

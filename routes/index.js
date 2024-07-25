@@ -54,4 +54,7 @@ router.post("/createmessage", indexController.postCreateMessage);
 // get for deletepost
 router.get("/delete/:id", isAdmin, indexController.getDelete);
 
+// post for deletepost
+router.post("/delete/:id", isAdmin, indexController.postDelete);
+
 module.exports = router;

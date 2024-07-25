@@ -6,3 +6,6 @@ block content
         p Author: #{post.username}
         p Message: #{post.message}
         p Date: #{post.date}
+        form(method="POST")
+            input(type="hidden", name='targetID' value=`${post.id}`)
+            button.btn-submit(action="submit") Confirm delete
