@@ -1,11 +1,7 @@
-var express = require("express");
-var router = express.Router();
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const pool = require("../config/pool");
 const genPassword = require("../lib/passwordUtils").genPassword;
-const validPassword = require("../lib/passwordUtils").validPassword;
-const passport = require("passport");
 
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
@@ -111,6 +107,11 @@ exports.postSignUp = [
 // GET LOGIN
 exports.getLogin = asyncHandler(async (req, res, next) => {
   res.render("login");
+});
+
+// GET LOGIN FAIL
+exports.getLoginFail = asyncHandler(async (req, res, next) => {
+  res.render("loginfail");
 });
 
 // POST LOGIN
