@@ -7,6 +7,7 @@ block content
             each post in posts 
                 li.userMessage
                     p #{post.message} 
-                    p Posted by #{post.username}, on #{post.date}
-                    if user.rows[0].isadmin 
-                        a(href=`/delete/${post.id}`) Delete post
+                    if users
+                        p Posted by #{post.username}, on #{post.date}
+                        if user.rows[0].isadmin 
+                            a(href=`/delete/${post.id}`) Delete post

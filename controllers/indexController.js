@@ -81,13 +81,13 @@ exports.postSignUp = [
           return;
         } else {
           const saltHash = genPassword(req.body.password);
-          const salt = saltHash.salt;
-          const hash = saltHash.hash;
+          // const salt = saltHash.salt;
+          // const hash = saltHash.hash;
 
           const newUser = [
             req.body.username,
-            hash,
-            salt,
+            saltHash,
+            0,
             req.body.firstName,
             req.body.lastName,
             false,

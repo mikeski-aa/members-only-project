@@ -8,6 +8,7 @@
     "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^9.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
