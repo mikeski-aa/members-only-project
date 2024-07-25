@@ -6,6 +6,7 @@ body {
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #f7ede2;
 }
 
 a {
@@ -16,14 +17,14 @@ a {
   list-style: none;
   margin: 0;
   padding: 0;
-  padding-left: 15px;
+  padding-left: 7px;
   padding-top: 15px;
 }
 
 .navBar {
-  background-color: bisque;
+  background-color: #f6bd60;
   height: 100vh;
-  width: 8vw;
+  width: 10vw;
 }
 
 .mainCont {
@@ -33,8 +34,6 @@ a {
 
 .navBar > ul > li {
   margin-bottom: 5px;
-  border: 2px solid rgb(72, 228, 255);
-  width: 95%;
 }
 
 .username,
@@ -58,18 +57,34 @@ a {
 }
 
 .navBar > ul > li:hover {
-  background-color: rgb(0, 90, 105);
-
-  transition: 1s;
 }
 
-.navBar > ul > li > a {
+.navBtn {
   text-decoration: none;
   color: black;
+  width: 8vw;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0);
 }
 
-.navBar > ul > li > a:hover {
+.navBtn:hover {
   text-decoration: none;
-  color: white;
+  background-color: #f5cac3;
   transition: 1s;
+  cursor: pointer;
+}
+
+.btn-newmsg {
+  text-decoration: none;
+  color: black;
+  width: 8vw;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.btn-newmsg:hover {
+  text-decoration: none;
+  background-color: #84a59d;
+  transition: 1s;
+  cursor: pointer;
 }

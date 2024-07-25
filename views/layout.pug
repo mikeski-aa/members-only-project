@@ -2,28 +2,51 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')   
+
   body
+    script.
+      function goHome(){ 
+        console.log('i work');
+        window.location.href = "/"   
+      }
+
+      function goMessages() {
+        window.location.href = "/messages"
+      }
+      function createMessage() {
+        window.location.href = "/createmessage"
+      }
+      function logout() {
+        window.location.href = "/logout"
+      }
+      function login() {
+        window.location.href = "/login"
+      }
+      function signup() {
+        window.location.href = "/signup"
+      }
+
     div(class="navBar")
       ul 
         if user!=undefined
           p Welcome, #[strong #{user.rows[0].firstname}]
           li 
-            a(href='/') Home
+            button(class='navBtn' onclick='goHome()') Home
           li 
-            a(href='/messages') View messages 
+            button(class='navBtn' onclick='goMessages()') Messages
           li 
-            a(href='/createmessage') Post message
+            button(class='navBtn' onclick='createMessage()') Post message
           li 
-            a(href='/logout') Log out
+            button(class='navBtn' onclick='logout()') Logout
         else 
           li 
-            a(href='/') Home 
+            button(class='navBtn' onclick='goHome()') Home
           li 
-            a(href='/login') Log In 
+            button(class='navBtn' onclick='login()') Login 
           li 
-            a(href='/signup') Sign Up 
+            button(class='navBtn' onclick='signup()') Sign up
           li 
-            a(href='/messages') Messages
+            button(class='navBtn' onclick='messages()') Messages
           
     block content
