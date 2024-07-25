@@ -25,7 +25,9 @@ a {
 
 .username,
 .password,
-.passwordConfirm {
+.passwordConfirm,
+.firstName,
+.lastName {
   display: flex;
   flex-direction: column;
 }

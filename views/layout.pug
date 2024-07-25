@@ -7,9 +7,15 @@ html
     div(class="navBar")
       ul 
         if user
-         li 
+          li 
             p Welcome, #{user.name}
+          li 
+            a(href='/') Home
+          li 
+            a(href='/messages') Messages
         else 
+          li 
+            a(href='/') Home 
           li 
             a(href='/login') Log In 
           li 

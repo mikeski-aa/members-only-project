@@ -5,13 +5,23 @@ block content
         h1 Sign up 
 
         form(method='POST')
+            div.firstName 
+                label(for="firstName") Enter your first name
+                input(type='text' name='firstName' placeholder='Your first name' required value=(fname===undefined?'':fname))
+            div.lastName 
+                label(for="lastName") Enter your last name
+                input(type='text' name='lastName' placeholder='Your last name' required value=(lname===undefined?'':lname))
             div.username 
                 label(for="username") Enter desired username 
-                input(type='text' name='username' placeholder='Your username')
+                input(type='text' name='username' placeholder='Your username' required value=(uname===undefined?'':uname))
             div.password 
                 label(for="password") Enter your password 
-                input(type="password" name="password" placeholder='Your password')
+                input(type="password" name="password" placeholder='Your password' required)
             div.passwordConfirm 
                 label(for="passwordConfirm" ) Confirm password 
-                input(type="password" name="passwordConfirm" placeholder='Confirm your password')
+                input(type="password" name="passwordConfirm" placeholder='Confirm your password' required)
             button.btn.submitBtn(action='submit') Submit form
+        if errors 
+            ul 
+                each error in errors 
+                    li!=error.msg
