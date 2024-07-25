@@ -48,7 +48,7 @@ passport.use(strategy);
 
 // serialization defines how user information is stored in the session when user successfully authenticates.
 passport.serializeUser((user, done) => {
-  done(nul, user.rows[0].id);
+  done(null, user.rows[0].id);
 });
 
 // coming out of the session -> grabbing user ID stored in session finding it in Database

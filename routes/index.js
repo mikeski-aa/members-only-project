@@ -1,7 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const indexController = require("../controllers/indexController");
-
+const passport = require("passport");
+const e = require("express");
 /* GET home page. */
 router.get("/", indexController.getIndex);
 
@@ -14,3 +15,12 @@ module.exports = router;
 
 // GET LOGIN PAGE
 router.get("/login", indexController.getLogin);
+
+// POST LOGIN PAGE
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login-failure",
+    successRedirect: "/",
+  })
+);
