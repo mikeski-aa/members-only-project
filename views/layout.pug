@@ -6,13 +6,15 @@ html
   body
     div(class="navBar")
       ul 
-        if user
+        if user!=undefined
           li 
-            p Welcome, #{user.name}
+            p Welcome, #{user.rows[0].firstname}
           li 
             a(href='/') Home
           li 
             a(href='/messages') Messages
+          li 
+            a(href='/logout') Log out
         else 
           li 
             a(href='/') Home 
@@ -22,4 +24,5 @@ html
             a(href='/signup') Sign Up 
           li 
             a(href='/messages') Messages
+          
     block content

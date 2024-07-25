@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 const indexController = require("../controllers/indexController");
 const passport = require("passport");
+const isAuth = require("../routes/authMiddleware").isAuth;
 
 /* GET home page. */
-router.get("/", indexController.getIndex);
+router.get("/", isAuth, indexController.getIndex);
 
 // GET SIGNUP PAGE
 router.get("/signup", indexController.getSignUp);
@@ -37,5 +38,7 @@ router.post(
     successRedirect: "/",
   })
 );
+
+router.get("/logout", indexController.getLogout);
 
 module.exports = router;

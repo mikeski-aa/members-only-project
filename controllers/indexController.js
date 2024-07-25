@@ -2,10 +2,15 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const pool = require("../config/pool");
 const genPassword = require("../lib/passwordUtils").genPassword;
-
+const authCheck = require("../routes/authMiddleware").authCheck;
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
-  res.render("index", { title: "Members-only message board" });
+  console.log(req.user);
+  console.log(req.test);
+  res.render("index", {
+    title: "Members-only message board",
+    user: req.user,
+  });
 });
 
 // GET sign up form
@@ -112,6 +117,16 @@ exports.getLogin = asyncHandler(async (req, res, next) => {
 // GET LOGIN FAIL
 exports.getLoginFail = asyncHandler(async (req, res, next) => {
   res.render("loginfail");
+});
+
+// get logout
+exports.getLogout = asyncHandler(async (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+  });
+  res.redirect("/");
 });
 
 // POST LOGIN
