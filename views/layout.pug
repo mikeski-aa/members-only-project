@@ -4,4 +4,16 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div(class="navBar")
+      ul 
+        if user
+         li 
+            p Welcome, #{user.name}
+        else 
+          li 
+            a(href='/login') Log In 
+          li 
+            a(href='/signup') Sign Up 
+          li 
+            a(href='/messages') Messages
     block content

@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+    div(class='mainCont')
+        h1 Sign up 
+
+        form(method='POST')
+            div.username 
+                label(for="username") Enter desired username 
+                input(type='text' name='username' placeholder='Your username')
+            div.password 
+                label(for="password") Enter your password 
+                input(type="password" name="password" placeholder='Your password')
+            div.passwordConfirm 
+                label(for="passwordConfirm" ) Confirm password 
+                input(type="password" name="passwordConfirm" placeholder='Confirm your password')
+            button.btn.submitBtn(action='submit') Submit form

@@ -1,8 +1,31 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.navBar > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.mainCont {
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.username,
+.password,
+.passwordConfirm {
+  display: flex;
+  flex-direction: column;
 }

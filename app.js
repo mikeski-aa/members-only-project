@@ -3,11 +3,12 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const pgSession = require("connect-pg-simple");
 const session = require("express-session");
 require("dotenv").config();
 const pool = require("./config/pool");
+const pgSession = require("connect-pg-simple")(session);
 require("./config/passport");
+const passport = require("passport");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -45,7 +46,7 @@ app.use(
 // set up passport use
 app.use(passport.session());
 app.use((req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
   next();
 });
 
