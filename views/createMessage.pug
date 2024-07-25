@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+    div.mainCont 
+        form(method='POST')
+            div.messageBlock 
+                label(for='message') Enter your message 
+                textarea(name='message' placeholder='Your message' required)
+            button.btn-submit(action='submit') Post message

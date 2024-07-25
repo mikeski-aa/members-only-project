@@ -29,7 +29,8 @@ a {
 .firstName,
 .lastName,
 .usernameInput,
-.passwordInput {
+.passwordInput,
+.messageBlock {
   display: flex;
   flex-direction: column;
 }

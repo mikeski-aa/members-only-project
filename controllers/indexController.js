@@ -5,8 +5,6 @@ const genPassword = require("../lib/passwordUtils").genPassword;
 const authCheck = require("../routes/authMiddleware").authCheck;
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
-  console.log(req.test);
   res.render("index", {
     title: "Members-only message board",
     user: req.user,
@@ -128,6 +126,34 @@ exports.getLogout = asyncHandler(async (req, res, next) => {
   });
   res.redirect("/");
 });
+
+// GET MESSAGES
+exports.getMessages = asyncHandler(async (req, res, next) => {
+  res.render("messages", { user: req.user });
+});
+
+// GET CREATE MESSAGE
+exports.getCreateMessage = asyncHandler(async (req, res, next) => {
+  res.render("createMessage", { user: req.user });
+});
+
+// POST create message
+exports.postCreateMessage = [
+  body("message", "Your message must be longer than one character")
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    try {
+      const date = new Date().toISOString();
+      const post = [req.user.rows[0].id, date, req.body.message];
+      console.log(post);
+      res.redirect("/");
+    } catch (error) {
+      next(err);
+    }
+  }),
+];
 
 // POST LOGIN
 

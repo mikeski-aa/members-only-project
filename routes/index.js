@@ -39,6 +39,16 @@ router.post(
   })
 );
 
+// get for logout
 router.get("/logout", indexController.getLogout);
+
+// get for messages
+router.get("/messages", isAuth, indexController.getMessages);
+
+// get for createmessage
+router.get("/createmessage", isAuth, indexController.getCreateMessage);
+
+// get for createmessage
+router.post("/createmessage", isAuth, indexController.postCreateMessage);
 
 module.exports = router;
