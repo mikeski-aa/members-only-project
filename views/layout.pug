@@ -7,8 +7,7 @@ html
     div(class="navBar")
       ul 
         if user!=undefined
-          li 
-            p Welcome, #{user.rows[0].firstname}
+          p Welcome, #[strong #{user.rows[0].firstname}]
           li 
             a(href='/') Home
           li 

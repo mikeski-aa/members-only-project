@@ -4,6 +4,8 @@ body {
   display: flex;
   margin: 0;
   padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -18,9 +20,21 @@ a {
   padding-top: 15px;
 }
 
+.navBar {
+  background-color: bisque;
+  height: 100vh;
+  width: 8vw;
+}
+
 .mainCont {
   padding-left: 15px;
   padding-top: 15px;
+}
+
+.navBar > ul > li {
+  margin-bottom: 5px;
+  border: 2px solid rgb(72, 228, 255);
+  width: 95%;
 }
 
 .username,
@@ -41,4 +55,21 @@ a {
 
 .userMessage {
   background-color: rgba(128, 128, 128, 0.404);
+}
+
+.navBar > ul > li:hover {
+  background-color: rgb(0, 90, 105);
+
+  transition: 1s;
+}
+
+.navBar > ul > li > a {
+  text-decoration: none;
+  color: black;
+}
+
+.navBar > ul > li > a:hover {
+  text-decoration: none;
+  color: white;
+  transition: 1s;
 }
