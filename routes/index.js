@@ -3,9 +3,9 @@ var router = express.Router();
 const indexController = require("../controllers/indexController");
 const passport = require("passport");
 const isAuth = require("../routes/authMiddleware").isAuth;
-
+const isAdmin = require("../routes/authMiddleware").isAdmin;
 /* GET home page. */
-router.get("/", isAuth, indexController.getIndex);
+router.get("/", indexController.getIndex);
 
 // GET SIGNUP PAGE
 router.get("/signup", indexController.getSignUp);
@@ -43,12 +43,15 @@ router.post(
 router.get("/logout", indexController.getLogout);
 
 // get for messages
-router.get("/messages", isAuth, indexController.getMessages);
+router.get("/messages", indexController.getMessages);
 
 // get for createmessage
-router.get("/createmessage", isAuth, indexController.getCreateMessage);
+router.get("/createmessage", indexController.getCreateMessage);
 
 // get for createmessage
-router.post("/createmessage", isAuth, indexController.postCreateMessage);
+router.post("/createmessage", indexController.postCreateMessage);
+
+// get for deletepost
+router.get("/delete/:id", isAdmin, indexController.getDelete);
 
 module.exports = router;

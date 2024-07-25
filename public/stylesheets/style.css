@@ -34,3 +34,11 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.messageUL {
+  list-style: none;
+}
+
+.userMessage {
+  background-color: rgba(128, 128, 128, 0.404);
+}

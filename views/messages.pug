@@ -3,3 +3,10 @@ extends layout
 block content 
     div.mainCont 
         h1 Message board
+        ul.messageUL 
+            each post in posts 
+                li.userMessage
+                    p #{post.message} 
+                    p Posted by #{post.username}, on #{post.date}
+                    if user.rows[0].isadmin 
+                        a(href=`/delete/${post.id}`) Delete post

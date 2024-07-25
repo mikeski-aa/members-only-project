@@ -7,7 +7,7 @@ module.exports.isAuth = (req, res, next) => {
 };
 
 module.exports.isAdmin = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.isadmin) {
+  if (req.isAuthenticated() && req.user.rows[0].isadmin) {
     next();
   } else {
     res

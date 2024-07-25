@@ -98,7 +98,7 @@ exports.postSignUp = [
             newUser
           );
 
-          res.redirect("/");
+          res.redirect("/login");
         }
       } catch (error) {
         next(error);
@@ -129,7 +129,12 @@ exports.getLogout = asyncHandler(async (req, res, next) => {
 
 // GET MESSAGES
 exports.getMessages = asyncHandler(async (req, res, next) => {
-  res.render("messages", { user: req.user });
+  const posts = await pool.query(
+    `SELECT username, message, date, posts.id FROM users JOIN posts ON users.id = user_id ORDER BY date DESC`
+  );
+
+  console.log(posts.rows);
+  res.render("messages", { user: req.user, posts: posts.rows });
 });
 
 // GET CREATE MESSAGE
@@ -139,21 +144,41 @@ exports.getCreateMessage = asyncHandler(async (req, res, next) => {
 
 // POST create message
 exports.postCreateMessage = [
-  body("message", "Your message must be longer than one character")
-    .isLength({ min: 1 })
+  body(
+    "message",
+    "Your message must be longer than one character and shorter than 100 characters"
+  )
+    .isLength({ min: 1, max: 100 })
     .escape(),
 
   asyncHandler(async (req, res, next) => {
     try {
-      const date = new Date().toISOString();
-      const post = [req.user.rows[0].id, date, req.body.message];
-      console.log(post);
-      res.redirect("/");
+      const date = new Date();
+      const post = [req.body.message, date, req.user.rows[0].id];
+      await pool.query(
+        `INSERT INTO posts (message, date, user_id) VALUES ($1, $2, $3)`,
+        post
+      );
+      res.redirect("/messages");
     } catch (error) {
-      next(err);
+      next(error);
     }
   }),
 ];
+
+// get post delete form
+exports.getDelete = asyncHandler(async (req, res, next) => {
+  try {
+    const postinfo = await pool.query(
+      "SELECT username, message, date, posts.id FROM users JOIN posts ON users.id = user_id WHERE posts.id = $1",
+      [req.params.id]
+    );
+
+    res.render("deletepost", { user: req.user, post: postinfo.rows[0] });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST LOGIN
 
