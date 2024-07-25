@@ -6,7 +6,8 @@ var logger = require("morgan");
 const pgSession = require("connect-pg-simple");
 const session = require("express-session");
 require("dotenv").config();
-const pool = require("./database/pool");
+const pool = require("./config/pool");
+require("./config/passport");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -31,6 +32,22 @@ const sessionStore = new pgSession({
 });
 
 // set up session usage
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // one day
+  })
+);
+
+// set up passport use
+app.use(passport.session());
+app.use((req, res, next) => {
+  console.log(req.session);
+  next();
+});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
