@@ -57,4 +57,10 @@ router.get("/delete/:id", isAdmin, indexController.getDelete);
 // post for deletepost
 router.post("/delete/:id", isAdmin, indexController.postDelete);
 
+// get memberstatus
+router.get("/memberstatus", isAuth, indexController.getMembercheck);
+
+// post memberstatus
+router.post("/memberstatus", isAuth, indexController.postMembercheck);
+
 module.exports = router;

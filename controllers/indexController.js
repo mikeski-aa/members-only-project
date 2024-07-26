@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const pool = require("../config/pool");
 const genPassword = require("../lib/passwordUtils").genPassword;
 const authCheck = require("../routes/authMiddleware").authCheck;
+require("dotenv").config;
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
   res.render("index", {
@@ -91,10 +92,11 @@ exports.postSignUp = [
             req.body.firstName,
             req.body.lastName,
             false,
+            false,
           ];
 
           await pool.query(
-            `INSERT INTO users (username, hash, salt, firstname, lastname, isAdmin) VALUES ($1, $2, $3, $4, $5, $6)`,
+            `INSERT INTO users (username, hash, salt, firstname, lastname, isAdmin, memberstatus) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
             newUser
           );
 
@@ -190,3 +192,37 @@ exports.postDelete = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+
+// get memberstatus
+exports.getMembercheck = asyncHandler(async (req, res, next) => {
+  res.render("membercheck", { user: req.user });
+});
+
+// post memberstatus
+exports.postMembercheck = [
+  body("membercode", "Invalid secret passcode entered")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    if (req.body.membercode === process.env.MEM_PASS) {
+      try {
+        console.log("correct entered");
+        await pool.query("UPDATE users SET memberstatus = true WHERE id = $1", [
+          req.user.rows[0].id,
+        ]);
+
+        res.redirect("/memberstatus");
+        return;
+      } catch (err) {
+        next(err);
+      }
+    } else {
+      res.render("membercheck", {
+        user: req.user,
+        error: "Incorrect club pass entered",
+      });
+    }
+  }),
+];

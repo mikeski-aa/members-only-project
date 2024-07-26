@@ -27,6 +27,10 @@ html
         window.location.href = "/signup"
       }
 
+      function memberStatus() {
+        window.location.href = "/memberstatus"
+      }
+
     div(class="navBar")
       ul 
         if user!=undefined
@@ -37,6 +41,8 @@ html
             button(class='navBtn' onclick='goMessages()') Messages
           li 
             button(class='navBtn' onclick='createMessage()') Post message
+          li 
+            button(class='navBtn' onclick='memberStatus()') Club member status
           li 
             button(class='navBtn' onclick='logout()') Logout
         else 

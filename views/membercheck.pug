@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    div.mainCont 
+        h1 Membership status: 
+        if user.rows[0].memberstatus != false
+            h3 Membership status verified! 
+        else
+            h3 Not verified 
+            p If you recieved the secret membership code you can submit it below 
+            form(method='post')
+                div.membercode
+                    label(for="membercode") Enter your secret passcode: 
+                    div.input_error
+                        input(type="text" name="membercode" placeholder="Your code") 
+                        if error 
+                            p.memberError=error
+                button.btn-submitMember(action='submit') Enter code

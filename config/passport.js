@@ -12,7 +12,8 @@ const verifyCallback = (username, password, done) => {
   pool
     .query(`SELECT * FROM users WHERE username = $1`, [username])
     .then((user) => {
-      if (!user) {
+      if (!user.rows[0]) {
+        console.log("user not found!");
         // user not present in DB
         // pass done callback to passport stating user was not found
         return done(null, false);
