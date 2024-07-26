@@ -30,7 +30,7 @@ html
     div(class="navBar")
       ul 
         if user!=undefined
-          p Welcome, #[strong #{user.rows[0].firstname}]
+          p.userWelcome Welcome, #[strong #{user.rows[0].firstname}]
           li 
             button(class='navBtn' onclick='goHome()') Home
           li 
@@ -40,6 +40,7 @@ html
           li 
             button(class='navBtn' onclick='logout()') Logout
         else 
+          p.userWelcome
           li 
             button(class='navBtn' onclick='goHome()') Home
           li 

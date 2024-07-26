@@ -80,7 +80,7 @@ exports.postSignUp = [
           });
           return;
         } else {
-          const saltHash = genPassword(req.body.password);
+          const saltHash = await genPassword(req.body.password);
           // const salt = saltHash.salt;
           // const hash = saltHash.hash;
 
@@ -190,63 +190,3 @@ exports.postDelete = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
-
-// POST LOGIN
-
-// exports.postLogin = [
-//   body("username", "Username not be empty")
-//     .trim()
-//     .isLength({ min: 1 })
-//     .escape(),
-//   body("password", "Password is required!")
-//     .trim()
-//     .isLength({ min: 1 })
-//     .escape(),
-//   passport.authenticate("local", {
-//     failureRedirect: "/login-failure",
-//     successRedirect: "/login-success",
-//   }),
-// ];
-
-// exports.postLogin = [
-//   body("username", "Username not be empty")
-//     .trim()
-//     .isLength({ min: 1 })
-//     .escape(),
-//   body("password", "Password is required!")
-//     .trim()
-//     .isLength({ min: 1 })
-//     .escape(),
-
-//   asyncHandler(async (req, res, next) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       // errors found, re render login form
-//       res.render("login", { uname: req.body.username, errors: errors.array() });
-//     } else {
-//       try {
-//         const details = await pool.query(
-//           "SELECT hash, salt FROM users WHERE username = $1",
-//           [req.body.username]
-//         );
-//         const isValid = validPassword(
-//           req.body.password,
-//           details.hash,
-//           details.salt
-//         );
-
-//         if (!isValid) {
-//           // invalid login password, re render
-//           res.render("login", {
-//             uname: req.body.username,
-//             errors: [{ msg: "Invalid username or password" }],
-//           });
-//         } else {
-
-//         }
-//       } catch (err) {
-//         next(err);
-//       }
-//     }
-//   }),
-// ];

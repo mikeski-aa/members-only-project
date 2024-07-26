@@ -88,3 +88,7 @@ a {
   transition: 1s;
   cursor: pointer;
 }
+
+p.userWelcome {
+  height: 5vh;
+}
