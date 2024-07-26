@@ -6,11 +6,15 @@ block content
         form(method='POST')
             div.usernameInput
                 label(for='username') Enter your username 
-                input(type="text" name='username' placeholder="Your username" required value=(uname===undefined?'':uname))
+                input.loginInputBox(type="text" name='username' placeholder="Your username" required value=(uname===undefined?'':uname))
             div.passwordInput
                 label(for='password') Enter your password 
-                input(type="password" name='password'  placeholder="Your password" required )
-            button.btn-submit(action="submit") Log in  
+                input.loginInputBox(type="password" name='password'  placeholder="Your password" required )
+            button.btn-login(action="submit") Log in  
         ul 
             li 
                 p Incorrect username or password!
+        if errors
+            ul 
+                each error in errors 
+                    li!=error.msg

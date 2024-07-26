@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const pool = require("../config/pool");
 const genPassword = require("../lib/passwordUtils").genPassword;
 const authCheck = require("../routes/authMiddleware").authCheck;
+const passport = require("passport");
 require("dotenv").config;
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
@@ -10,7 +11,6 @@ exports.getIndex = asyncHandler(async (req, res, next) => {
     `SELECT username, message, date, posts.id FROM users JOIN posts ON users.id = user_id ORDER BY date DESC`
   );
 
-  console.log(req.user.rows[0]);
   res.render("index", { user: req.user, posts: posts.rows });
 });
 
@@ -113,7 +113,11 @@ exports.postSignUp = [
 
 // GET LOGIN
 exports.getLogin = asyncHandler(async (req, res, next) => {
-  res.render("login");
+  console.log(req.session.messages);
+  if (req.session.messages) {
+    req.test = "Username or password is invalid!";
+  }
+  res.render("login", { passportmsg: req.session.messages });
 });
 
 // GET LOGIN FAIL
@@ -187,7 +191,6 @@ exports.getDelete = asyncHandler(async (req, res, next) => {
 // post delete form
 exports.postDelete = asyncHandler(async (req, res, next) => {
   try {
-    console.log(req.body.targetID);
     await pool.query("DELETE FROM posts WHERE id = $1", [req.body.targetID]);
     res.redirect("/");
   } catch (error) {
@@ -220,7 +223,6 @@ exports.postMembercheck = [
 
     if (req.body.membercode === process.env.MEM_PASS) {
       try {
-        console.log("correct entered");
         await pool.query("UPDATE users SET memberstatus = true WHERE id = $1", [
           req.user.rows[0].id,
         ]);
@@ -236,5 +238,61 @@ exports.postMembercheck = [
         error: "Incorrect club pass entered",
       });
     }
+  }),
+];
+
+// post login
+exports.postLogin = [
+  body("username", "Username can only contain letters and numbers!")
+    .trim()
+    .isLength({ min: 1, max: 50 })
+    .escape(),
+  body("password", "Password must only contain letter and numbers")
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // errors found re-render
+      return res.render("login", { user: req.user, errors: errors });
+    } else {
+      passport.authenticate("local", {
+        failureRedirect: "/login-fail",
+        failureMessage: true,
+        successRedirect: "/",
+      })(req, res);
+    }
+
+    return;
+  }),
+];
+
+// post login fail
+exports.postLoginFail = [
+  body("username", "Username can only contain letters and numbers!")
+    .trim()
+    .isLength({ min: 1, max: 50 })
+    .escape(),
+  body("password", "Password must only contain letter and numbers")
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // errors found re-render
+      return res.render("login", { user: req.user, errors: errors });
+    } else {
+      passport.authenticate("local", {
+        failureRedirect: "/login-fail",
+        failureMessage: true,
+        successRedirect: "/",
+      })(req, res);
+    }
+
+    return;
   }),
 ];

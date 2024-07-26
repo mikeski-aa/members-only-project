@@ -17,13 +17,8 @@ router.post("/signup", indexController.postSignUp);
 router.get("/login", indexController.getLogin);
 
 // POST LOGIN PAGE
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    failureRedirect: "/login-fail",
-    successRedirect: "/",
-  })
-);
+
+router.post("/login", indexController.postLogin);
 
 // get login failure
 
@@ -31,13 +26,14 @@ router.get("/login-fail", indexController.getLoginFail);
 
 // post login fail
 
-router.post(
-  "/login-fail",
-  passport.authenticate("local", {
-    failureRedirect: "/login-fail",
-    successRedirect: "/",
-  })
-);
+// router.post(
+//   "/login-fail",
+//   passport.authenticate("local", {
+//     failureRedirect: "/login-fail",
+//     successRedirect: "/",
+//   })
+// );
+router.post("/login-fail", indexController.postLoginFail);
 
 // get for logout
 router.get("/logout", indexController.getLogout);

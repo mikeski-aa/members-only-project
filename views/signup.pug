@@ -20,7 +20,7 @@ block content
             div.passwordConfirm 
                 label(for="passwordConfirm" ) Confirm password 
                 input(type="password" name="passwordConfirm" placeholder='Confirm your password' required value=(pwc===undefined?'':pwc))
-            button.btn.submitBtn(action='submit') Register!
+            button.btn-register(action='submit') Register!
         if errors 
             ul 
                 each error in errors 
