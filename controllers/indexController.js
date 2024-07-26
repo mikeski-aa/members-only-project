@@ -90,7 +90,6 @@ exports.postSignUp = [
           const newUser = [
             req.body.username,
             saltHash,
-            0,
             req.body.firstName,
             req.body.lastName,
             false,
@@ -98,7 +97,7 @@ exports.postSignUp = [
           ];
 
           await pool.query(
-            `INSERT INTO users (username, hash, salt, firstname, lastname, isAdmin, memberstatus) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+            `INSERT INTO users (username, hash, firstname, lastname, isAdmin, memberstatus) VALUES ($1, $2, $3, $4, $5, $6)`,
             newUser
           );
 

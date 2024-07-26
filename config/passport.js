@@ -21,11 +21,7 @@ const verifyCallback = (username, password, done) => {
 
       // function checking validity from utils -> compares password hash v.s stored hash
       // true or false
-      const isValid = validPassword(
-        password,
-        user.rows[0].hash,
-        user.rows[0].salt
-      );
+      const isValid = validPassword(password, user.rows[0].hash);
 
       if (isValid) {
         //validation passed
