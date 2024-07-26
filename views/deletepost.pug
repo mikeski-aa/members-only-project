@@ -8,4 +8,4 @@ block content
         p Date: #{post.date}
         form(method="POST")
             input(type="hidden", name='targetID' value=`${post.id}`)
-            button.btn-submit(action="submit") Confirm delete
+            button.btn-del-submit(action="submit") Confirm delete

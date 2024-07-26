@@ -6,10 +6,12 @@ const authCheck = require("../routes/authMiddleware").authCheck;
 require("dotenv").config;
 // GET index
 exports.getIndex = asyncHandler(async (req, res, next) => {
-  res.render("index", {
-    title: "Members-only message board",
-    user: req.user,
-  });
+  const posts = await pool.query(
+    `SELECT username, message, date, posts.id FROM users JOIN posts ON users.id = user_id ORDER BY date DESC`
+  );
+
+  console.log(req.user.rows[0]);
+  res.render("index", { user: req.user, posts: posts.rows });
 });
 
 // GET sign up form
@@ -129,16 +131,6 @@ exports.getLogout = asyncHandler(async (req, res, next) => {
   res.redirect("/");
 });
 
-// GET MESSAGES
-exports.getMessages = asyncHandler(async (req, res, next) => {
-  const posts = await pool.query(
-    `SELECT username, message, date, posts.id FROM users JOIN posts ON users.id = user_id ORDER BY date DESC`
-  );
-
-  console.log(posts.rows);
-  res.render("messages", { user: req.user, posts: posts.rows });
-});
-
 // GET CREATE MESSAGE
 exports.getCreateMessage = asyncHandler(async (req, res, next) => {
   res.render("createMessage", { user: req.user });
@@ -154,6 +146,16 @@ exports.postCreateMessage = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // errors present, re render
+      return res.render("createMessage", {
+        user: req.user,
+        errors: errors.array(),
+      });
+    }
+
     try {
       const date = new Date();
       const post = [req.body.message, date, req.user.rows[0].id];
@@ -161,14 +163,14 @@ exports.postCreateMessage = [
         `INSERT INTO posts (message, date, user_id) VALUES ($1, $2, $3)`,
         post
       );
-      res.redirect("/messages");
+      res.redirect("/");
     } catch (error) {
       next(error);
     }
   }),
 ];
 
-// get post delete form
+// get delete form
 exports.getDelete = asyncHandler(async (req, res, next) => {
   try {
     const postinfo = await pool.query(
@@ -187,7 +189,7 @@ exports.postDelete = asyncHandler(async (req, res, next) => {
   try {
     console.log(req.body.targetID);
     await pool.query("DELETE FROM posts WHERE id = $1", [req.body.targetID]);
-    res.redirect("/messages");
+    res.redirect("/");
   } catch (error) {
     next(error);
   }
@@ -206,6 +208,16 @@ exports.postMembercheck = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // errors present, re render
+      return res.render("membercheck", {
+        user: req.user,
+        errors: errors.array(),
+      });
+    }
+
     if (req.body.membercode === process.env.MEM_PASS) {
       try {
         console.log("correct entered");

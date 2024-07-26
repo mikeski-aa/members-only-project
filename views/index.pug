@@ -1,6 +1,17 @@
 extends layout
 
-block content
-  div(class='mainCont')
-    h1= title
-    p Welcome to #{title}
+block content 
+    div.mainCont 
+        h1 Message board
+        ul.messageUL 
+            each post in posts 
+                li.userMessage
+                    p.displayText #{post.message} 
+                    if user
+                        if user.rows[0].memberstatus
+                            div.msgBody
+                              p Posted by #[strong #{post.username}]
+                              div.adminStuff
+                                p On #{post.date.toISOString().split('T')[0]}
+                                if user.rows[0].isadmin 
+                                    a.adminLink(href=`/delete/${post.id}`) Delete post

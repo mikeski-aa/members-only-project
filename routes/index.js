@@ -42,9 +42,6 @@ router.post(
 // get for logout
 router.get("/logout", indexController.getLogout);
 
-// get for messages
-router.get("/messages", indexController.getMessages);
-
 // get for createmessage
 router.get("/createmessage", indexController.getCreateMessage);
 

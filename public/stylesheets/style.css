@@ -54,13 +54,26 @@ a {
 }
 
 .userMessage {
-  background-color: rgba(128, 128, 128, 0.404);
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid #84a59d;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+.userMessage > p {
+  margin: 0;
+}
+
+.displayText {
+  font-size: larger;
 }
 
 .navBar > ul > li:hover {
 }
 
-.navBtn {
+.navBtn,
+.btn-del-submit {
   text-decoration: none;
   color: black;
   width: 8vw;
@@ -92,4 +105,35 @@ a {
 
 p.userWelcome {
   height: 5vh;
+}
+
+.adminLink {
+  color: #f28482;
+  position: relative;
+  left: 100;
+}
+
+.msgBody > p,
+.adminStuff > p {
+  margin: 0;
+}
+
+.adminStuff {
+  display: flex;
+  width: 100;
+  justify-content: space-between;
+}
+
+.msgBody > p {
+  margin-top: 5px;
+}
+
+.btn-del-submit:hover {
+  cursor: pointer;
+  transition: 1s;
+  background-color: #f28482;
+}
+
+.btn-newmsg {
+  margin-top: 15px;
 }

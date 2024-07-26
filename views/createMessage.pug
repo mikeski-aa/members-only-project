@@ -2,8 +2,13 @@ extends layout
 
 block content 
     div.mainCont 
+        h1 Create a new post
         form(method='POST')
             div.messageBlock 
                 label(for='message') Enter your message 
                 textarea(name='message' placeholder='Your message' required)
             button.btn-newmsg(action='submit') Post message
+        if errors 
+            ul   
+                each error in errors 
+                    li!=error.msg
